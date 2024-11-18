@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yeat Translator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #663399;
+    }
+    .translator {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 2px solid #663399;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+    .translator label {
+      font-weight: bold;
+    }
+    .translator input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #663399;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #552288;
+    }
+    .output {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Yeat Vocabulary Translator</h1>
+  <div class="translator">
+    <label for="word">Enter a Yeat word:</label>
+    <input type="text" id="word" placeholder="e.g., Tonka, Twizzy, Luhh">
+    <button onclick="translate()">Translate</button>
+    <p class="output" id="translation"></p>
+  </div>
+
+  <script>
+    let yeatWords = {};
+
+    // Load words.json dynamically
+    fetch("words.json")
+      .then(response => response.json())
+      .then(data => {
+        yeatWords = data;
+      })
+      .catch(error => {
+        console.error("Error loading words.json:", error);
+      });
+
+    function translate() {
+      const input = document.getElementById("word").value.trim();
+      const translation = yeatWords[input] || "Sorry, I don't know that word yet!";
+      document.getElementById("translation").textContent = translation;
+    }
+  </script>
+</body>
+</html>
